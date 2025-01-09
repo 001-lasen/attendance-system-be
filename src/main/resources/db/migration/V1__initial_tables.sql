@@ -10,14 +10,14 @@ CREATE TABLE users (
 );
 
 CREATE TABLE teachers (
-                          id INT AUTO_INCREMENT PRIMARY KEY,
+                          employee_id INT AUTO_INCREMENT PRIMARY KEY,
                           name VARCHAR(100) NOT NULL,
                           user_id INT NOT NULL,
                           FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE students (
-                          id INT AUTO_INCREMENT PRIMARY KEY,
+                          student_id INT AUTO_INCREMENT PRIMARY KEY,
                           name VARCHAR(100) NOT NULL,
                           user_id INT NOT NULL,
                           FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -27,14 +27,14 @@ CREATE TABLE courses (
                          id INT AUTO_INCREMENT PRIMARY KEY,
                          course_name VARCHAR(100) NOT NULL,
                          teacher_id INT NOT NULL,
-                         FOREIGN KEY (teacher_id) REFERENCES teachers(id) ON DELETE CASCADE
+                         FOREIGN KEY (teacher_id) REFERENCES teachers(employee_id) ON DELETE CASCADE
 );
 
 CREATE TABLE student_courses (
                                  id INT AUTO_INCREMENT PRIMARY KEY,
                                  student_id INT NOT NULL,
                                  course_id INT NOT NULL,
-                                 FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
+                                 FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE CASCADE,
                                  FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE,
                                  UNIQUE (student_id, course_id)
 );
@@ -45,6 +45,6 @@ CREATE TABLE attendance (
                             course_id INT NOT NULL,
                             date DATE NOT NULL,
                             status ENUM('PRESENT', 'ABSENT') NOT NULL,
-                            FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
+                            FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE CASCADE,
                             FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );

@@ -1,5 +1,7 @@
 package org.example.attendancesystembe.controller;
 
+import org.example.attendancesystembe.domain.Student;
+import org.example.attendancesystembe.domain.Teacher;
 import org.example.attendancesystembe.domain.User;
 import org.example.attendancesystembe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,15 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         try {
             User createdUser = userService.createUser(user);
+            if (user.getRole() == User.Role.TEACHER) {
+                Teacher teacher = new Teacher();
+                teacher.setName(user.getUsername());
+                teacher.setUser(createdUser);
+            } else if (user.getRole() == User.Role.STUDENT) {
+                Student student = new Student();
+                student.setName(user.getUsername());
+                student.setUser(createdUser);
+            }
             return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
