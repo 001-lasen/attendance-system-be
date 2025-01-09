@@ -23,6 +23,6 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<User> getUsersBySearchKey(String searchKey) {
-        return userRepository.findByNameContaining(searchKey);
+        return userRepository.findByUsernameContaining(searchKey);
     }
 }

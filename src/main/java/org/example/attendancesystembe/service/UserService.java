@@ -5,8 +5,7 @@ import org.example.attendancesystembe.domain.User;
 import java.util.List;
 
 public interface UserService {
-
-    public User createUser(User user);
+    User createUser(User user);
     List<User> getAllUsers();
     List<User> getUsersBySearchKey(String searchKey);
 }
