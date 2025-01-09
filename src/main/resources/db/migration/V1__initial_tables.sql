@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS `attendance-database`;
+CREATE DATABASE IF NOT EXISTS `attendance_database`;
 
-USE `attendance-database`;
+USE `attendance_database`;
 
 CREATE TABLE `user_table` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
