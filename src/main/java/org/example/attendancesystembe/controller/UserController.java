@@ -27,8 +27,13 @@ public class UserController {
     }
 
     @GetMapping("/getUser")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
+    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String searchKey) {
+        List<User> users;
+        if (searchKey != null) {
+            users = userService.getUsersBySearchKey(searchKey);
+        } else {
+            users = userService.getAllUsers();
+        }
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }
